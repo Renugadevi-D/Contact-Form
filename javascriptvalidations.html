@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<style>
+	body{
+	background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.1)), url(lock.jpg);}
+	.form-group
+	{
+		margin: 0 2rem;
+	}
+	label.font-weight-bold {
+    padding-top: 1rem;
+    padding-bottom: 0.4rem;
+}
+	.passlay
+	{
+		position: relative;
+			}
+			
+.bg-light {
+    background-color: #f8f9fa!important;
+    padding: 1.5rem;
+    border-radius: 5px;}
+	.username
+	{
+		font-size:x-small;
+	}
+	.validate {
+    margin: 2rem ;
+    text-align: center;
+}
+
+.eyeicon
+{
+	position: absolute;
+	right: 2%;
+	bottom: 28%;
+}
+.checkbox
+{
+	float:right ;
+	padding-right: 2rem;
+}
+table{
+    border-collapse: collapse;
+    width: 100%;
+    margin: 2rem auto;
+}
+
+th, td{
+    text-align: center;
+    padding: 3px;
+}
+
+tr:nth-child(even){
+    background-color: #ccc;
+	color:#f8f9fa;
+}
+
+div#output {
+	background-color: floralwhite;
+    margin: 2rem auto;
+    width: fit-content;
+    margin: 0 autoo;
+    margin: 0 auto;
+	box-shadow: 0px 5px 10px rgba(0,0,0,0.4);
+}
+</style>
+</head>
+<body>
+<h1 class="text-white text-center font-weight-bold " style="font-size: 55px;"> Form Validation  </h1>
+
+	<div class="container" ><br>
+		
+		<div class="col-lg-7 clo-md-8 m-auto d-block">
+			
+			<form action="#"   class="bg-light" id="add-form">
+				
+				<div class="form-group">
+					<label for="user" class="font-weight-bold"> Firstname: </label>
+					<input type="text" name="user" class="form-control" id="user" maxlength="10" onchange="First(value)">
+					<span id="username" class="text-danger "> </span></div>
+					<div class="form-group">
+					<label for="user" class="font-weight-bold"> Middlename: </label>
+					<input type="text" name="Middle" class="form-control" id="Middle" maxlength="10" onchange="Middle1(value)">
+					<span id="Middlename" class="text-danger font-size-x-small"> </span></div>
+					<div class="form-group">
+					<label for="user" class="font-weight-bold"> Lastname: </label>
+					<input type="text" name="last" class="form-control" id="last" maxlength="10" onchange="Last(value)">
+					<span id="Lastname" class="text-danger font-size-x-small"> </span></div>
+				
+
+				<div class="form-group">
+					<label class="font-weight-bold"> Password: </label>
+					<div class="passlay">
+					<input type="password" name="pass" class="form-control" id="pass" onchange="password(value)">
+				    <i class="fas fa-check-circle"></i><i class="fas-fa-exclamation-circle"></i>	
+					<img type="image" class="eyeicon" src="eye.png" onclick="Toggle()"></div>
+					<span id="passwords" class="text-danger "> </span>
+					                         
+				</div>
+
+				<div class="form-group">
+					<label class="font-weight-bold"> Confirm Password: </label>
+					<input type="password" name="conpass" class="form-control" id="conpass" onchange="cfmp(value)">
+					<span id="confrmpass" class="text-danger "> </span>
+				</div>
+
+				<div class="form-group">
+					<label class="font-weight-bold">State:</label>
+
+                        <select id="state" name="state" class="form-control" onchange="State(value)">
+
+                        <option value="Select a state">Select a state</option>
+
+                        <option value="TamilNadu">Tamil Nadu</option>
+
+                        <option value="AndhraPradesh">Andhra Pradesh</option>
+
+                        <option value="Kerala">Kerala</option>                      
+
+                        </select>
+						<span id="select" class="text-danger"> </span>
+				</div>
+
+				<div class="form-group">
+					<label class="font-weight-bold">District:</label>
+
+					<select id="District" name="District" class="form-control" onchange="district(value)">
+
+                        <option value="Select a state">Select a District</option>            
+
+                        </select>
+				</div>
+				<div class="form-group">
+						<label for="PinCode" class="font-weight-bold">Pin Code: </label>
+					<input type="text" name="PinCode" class="form-control" id="Pin"/></div>
+					<div class="form-group">
+				<div class="validate">	
+					<input type="reset" name="reset" value="Cancel" class="btn btn-danger" onclick="Reset()">
+                   <input type="submit" name="submit" value="submit" class="btn btn-success" onclick="validation()">
+		       </div></div>
+			
+			</form>
+
+
+		</div>
+		
+	</div>
+	<div id="output" class="col-lg-6 clo-md-8" ></div>
+
+
+	<script>
+		
+	function First(x){
+			var user=x;
+			//var y=/^[a-zA-Z1-9\s]{10}+$/
+			if(user == ""){
+				document.getElementById('username').innerHTML ="  Please fill the Firstname field";
+				return false;
+			}
+			if((user.length <= 3) || (user.length > 11)) {
+				document.getElementById('username').innerHTML ="  Firstname length should be above 3 and below 10";
+				return false;	
+			}
+			else
+			{
+				document.getElementById('username').innerHTML=" ";
+			}
+			//if((y.test(x)))
+			 //{
+				//document.getElementById('username').innerHTML=" ";
+				//return true;
+			//}else{
+			//	document.getElementById('username').innerHTML="Please provide a valid";
+			//}
+		}
+		function Middle1(x){
+			var Middle=x;
+			if(Middle.length>11){
+				document.getElementById('Middlename').innerHTML="  Middlename length should be below 10";
+				return false;
+			}
+		}
+		function Last(x){
+			var last=x;
+			if(last== ""){
+				document.getElementById('Lastname').innerHTML=" Please fill the Lastname field";
+				return false;
+			}
+            if((last.length<=3)||(last.length>11)){
+				document.getElementById('Lastname').innerHTML="  Lastname length should be above 3 and below 10";
+				return false;
+			}   
+			else
+			{
+				document.getElementById('Lastname').innerHTML=" ";
+				return true;
+			}
+		}
+		function  password(x){
+			var pass=x;
+			passw= /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,15}$/;
+			if (!passw.test(pass)) {
+        
+				document.getElementById('passwords').innerHTML ="  Please provide a valid password";
+				return false;
+			}
+			else
+			{
+				document.getElementById('passwords').innerHTML=" ";
+				return true;
+			}
+			if(pass == "")
+		   {
+				document.getElementById('passwords').innerHTML ="  Please fill the password field";
+				return false;
+			}
+			if((pass.length <= 5) || (pass.length > 20)) {
+				document.getElementById('passwords').innerHTML ="  Passwords lenght must be between  5 and 20";
+				return false;	
+			}
+			else{
+				document.getElementById('passwords').innerHTML=" ";
+			}
+			
+		}
+		function Toggle() {
+            var temp = document.getElementById("pass");
+            if (temp.type === "password") {
+                temp.type = "text";
+            }
+            else {
+                temp.type = "password";
+            }
+        }
+	  		
+		const TamilNadu=["Chennai","Madurai"];
+	    const Kerala=["Kollam","Ernakulam"];
+	    const AndhraPradesh=["Nellore", "Prakasam"];
+		function State(x){
+  var StateSelected = x;
+  var optionsList;
+  var htmlString = "";
+
+  switch (StateSelected) {
+    case "TamilNadu":
+        optionsList = TamilNadu;
+        break;
+    case "Kerala":
+        optionsList = Kerala;
+        break;
+    case "AndhraPradesh":
+        optionsList = AndhraPradesh;
+        break;
+  }
+  for(var i = 0; i < optionsList.length; i++){
+    htmlString = htmlString+"<option value='"+ optionsList[i] +"'>"+ optionsList[i] +"</option>";
+  }
+  document.getElementById("District").innerHTML=htmlString;
+ 		}
+function district(x){
+		var district=x;
+	var code="";
+	switch(district){
+		case "Chennai":
+			code='600001';
+			break;
+		case "Madurai":
+			code='625001';
+			break;
+		case "Kollam":
+             code='691001';
+			 break;
+		case "Ernakulam":
+			code='682011';
+			break;
+		case "Nellore":	
+		    code='524001';
+			break;
+		case "Prakasam":	
+		    code= '523001';
+			break;
+	}
+	//console.log(code);
+	document.getElementById("Pin").value=code;
+		
+}
+
+		//function validation(){
+             const table=[];
+			// window.location.href="Detaillist.html";
+				const addForm = document.getElementById('add-form')
+                     
+             addForm.onsubmit = function(e) {
+              
+              e.preventDefault();
+			var user = document.getElementById('user').value;
+			var pass = document.getElementById('pass').value;
+			var confirmpass = document.getElementById('conpass').value;
+			var Middle = document.getElementById('Middle').value;
+			var last = document.getElementById('last').value;
+            var state=document.getElementById('state').value;
+			var district=document.getElementById('District').value;
+			var pincode=document.getElementById('Pin').value;
+			
+			if(user == ""){
+				alert("Please fill the Firstname field");
+				return false;
+			}
+			if((user.length <= 3) || (user.length > 11)) {
+				alert("  Firstname length should be above 3 and below 10");
+				return false;	
+			}
+		
+            if(Middle.length>11){
+				alert("  Middlename length should be below 10");
+			}
+            if(last== ""){
+				alert("  Please fill the lastname field");
+			}
+            if((last.length<=3)||(last.length>11)){
+				alert("  Lastname length should be above 3 and below 10");
+			}   
+
+           if(pass == "")
+		   {
+				alert("  Please fill the password field");
+				return false;
+			}
+			if((pass.length <= 5) || (pass.length > 20)) {
+				alert("  Passwords lenght must be between  5 and 20");
+				return false;	
+			}
+
+
+			if(pass!=confirmpass){
+				document.getElementById('confrmpass').innerHTML=" Password does not match the confirm password";
+				return false;
+			}
+			if(confirmpass == ""){
+				alert("  Please fill the confirmpassword field");
+				return false;
+			}
+              if(state=="Select a state"){
+				  alert("please select the state");
+				   return false;
+			  }
+			
+			
+			  table.push({FirstName:user, MiddleName:Middle, LastName: last, Password: pass , State: state, District:district, Pincode: pincode});
+			  const tableHeader = Object.keys(table[0]);
+           loadTable();
+          // const output = document.querySelector('.output');
+           function loadTable(){
+               let temp = `<table> <tr>`;
+               tableHeader.forEach( header=> temp+= `<th> ${header.toUpperCase()} </th>`);
+               temp+=`<tr>`
+               table.forEach(row => {
+                   temp +=`
+                   
+                   <tr>
+                    <td>${row.FirstName}</td>
+                     <td>${row.MiddleName}</td>
+                     <td>${row.LastName}</td>
+                    <td>${row.Password}</td>
+                    <td>${row. State}</td>
+                    <td>${row. District}</td>
+                    <td>${row.Pincode}</td>
+                   </tr>
+                   `
+              });
+             
+               temp+=`</table>`
+               document.getElementById("output").innerHTML=temp;
+			
+		   }}
+		
+function Reset(){
+	document.getElementById("District").innerHTML=" ";
+	document.getElementById("Pin").innerHTML=" ";
+	document.getElementById("username").innerHTML=" ";
+	document.getElementById("Middlename").innerHTML=" ";
+	document.getElementById("Lastname").innerHTML=" ";
+	document.getElementById("passwords").innerHTML=" ";
+}
+	</script>
+
+</body>
+</html>
